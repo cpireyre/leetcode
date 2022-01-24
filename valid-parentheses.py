@@ -15,6 +15,42 @@ def isValid(s):
                 return False
     return not(stack)
 
+# 40 ( 41 )
+# 91 [ 93 ]
+# 123 { 125 }
+
+# bytearray ver:
+# Excellent memory profile but slower
+#def isValid(s):
+#    if (len(s) % 2):
+#        return False
+#    stack = [0]
+#    for c in bytes(s, 'ascii'):
+#        if (c == 40) | (c == 91) | (c == 123):
+#            stack.append(c)
+#        else:
+#            p = stack.pop()
+#            if not (((p == 40) & (c == 41))
+#                    | ((p == 91) & (c == 93))
+#                    | ((p == 123) & (c == 125))):
+#                return False
+#    return stack == [0]
+
+# Sets ver, inspired by one of the Leetcode submissions:
+#def isValid(s):
+#    opens = {'(', '[', '{'}
+#    pairs = {'()', '[]', '{}'}
+#    stack = []
+#    for c in s:
+#        if c in opens:
+#            stack.append(c)
+#        elif not stack:
+#            return False
+#        elif stack.pop() + c not in pairs:
+#            return False
+#    return not stack
+# Actually slower with worse memory usage
+
 def runTests(f, T):
     for t in T:
         print(t[0])
@@ -24,5 +60,5 @@ def runTests(f, T):
         else:
             print("OK")
             
-testCases = [('()', True), ("()[]{}", True), ("(]", False)]
+testCases = [('()', True), ("()[]{}", True), ("(]", False), ("((", False), ("[", False)]
 runTests(isValid, testCases)
