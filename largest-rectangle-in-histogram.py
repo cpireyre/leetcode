@@ -40,13 +40,17 @@ def largestRectangleArea(heights: List[int]) -> int:
         else:
             return min(heights[start], recursiveSliceMin(start + 1, end))
 
-    maxArea = heights[0]
     L = len(heights)
-    for sliceLength in range(L):
+    lowerBound = L * min(heights)
+    for sliceLength in reversed(range(L)):
         sliceGen = ((1 + sliceLength) * recursiveSliceMin(k, k + sliceLength) for k in range(L - sliceLength))
-        maxArea = max(maxArea, max(sliceGen))
+        localMax = max(sliceGen)
+        if localMax > lowerBound:
+            lowerBound = localMax
 
-    return maxArea
+    return lowerBound
+# Memory limit exceeded on an array full of 1s. recursiveSliceMin blew up
+# It shouldn't have though?
 
 heights = [2,1,5,6,2,3]
 print(largestRectangleArea(heights))
