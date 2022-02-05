@@ -18,8 +18,8 @@ from operator import add
 #    return maxLength
 
 # Fast normie version doing everything by hand
-# Runtime: 832 ms, faster than 95.54% of Python3 online submissions for Contiguous Array.
-# Memory Usage: 19.5 MB, less than 17.33% of Python3 online submissions for Contiguous Array.
+#Runtime: 792 ms, faster than 99.01% of Python3 online submissions for Contiguous Array.
+#Memory Usage: 19.5 MB, less than 17.33% of Python3 online submissions for Contiguous Array.
 def findMaxLength(nums: List[int]) -> int:
     acc, i, m, l, d = 0, 0, 0, len(nums), {0: -1}
     while i < l:
