@@ -18,13 +18,14 @@ from math import factorial
 
 # Iterate the successor function ver:
 # This is the only acceptable solution other than using the binomial coefficient
+from itertools import pairwise
 def generate(numRows: int) -> List[List[int]]:
 
     def iterate(f, seed, n):
         return [seed] if not n else [seed] + iterate(f, f(seed), n - 1)
 
     def pascalSuccessor(row):
-        return [(row + [0])[i] + ([0] + row)[i] for i in range(len(row) + 1)]
+        return [sum(a) for a in pairwise([0] + row + [0])]
 
     return iterate(pascalSuccessor, [1], numRows - 1)
 #Runtime: 27 ms, faster than 91.86% of Python3 online submissions for Pascal's Triangle.
