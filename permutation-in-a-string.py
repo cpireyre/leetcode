@@ -19,6 +19,12 @@ def checkInclusion(s1: str, s2: str) -> bool:
 # Therefore one still has to check all the values... might be marginally faster but
 # not worth the effort and hit to clarity.
 
+# One-liner slow ver:
+def checkInclusion(s1: str, s2: str) -> bool:
+    return any(filter(lambda x: x == Counter(s1), map(Counter, (s2[o:o+len(s1)] for o in range(0, len(s2))))))
+#Runtime: 9420 ms, faster than 5.01% of Python3 online submissions for Permutation in String.
+#Memory Usage: 13.8 MB, less than 99.16% of Python3 online submissions for Permutation in String.
+
 s1 = "ab"
 s2 = "eidbaooo"
 print(checkInclusion(s1, s2)) # True
