@@ -11,14 +11,16 @@ def ladderLength(start: str, end: str, bank: list[str]) -> int:
         return diff == 1
 
     seen, q, res = set(), set(), 1
+    unseen = set(bank)
     q.add(start)
     while q:
         if end in q: return res
         _next = set()
-        for c, u in product(q, bank):
+        for c, u in product(q, unseen):
             if u not in seen and isValidMutation(c, u):
                 _next.add(u)
                 seen.add(u)
+        unseen -= seen
         q = _next
         res += 1
     return 0
