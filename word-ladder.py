@@ -4,41 +4,29 @@ from itertools import product
 def ladderLength(start: str, end: str, bank: list[str]) -> int:
     wordLength = len(start)
 
-    def isValidMutation(s1, s2):
-        diff = 0
-        for i in range(wordLength):
-            if s1[i] != s2[i]: diff += 1
-        return diff == 1
-
-    cmpKey = sum(ord(end[i]) for i in range(wordLength))
-    def endKey(s):
-        return abs(cmpKey - sum(ord(s[i]) for i in range(wordLength)))
-
-    seen, q, res = set(), set(), 1
-    seen.add(start)
-    unseen = set(bank)
-    q.add(start)
-    parents = dict()
-    parents[start] = None
+    q, res, parents = set([start]), 1, dict()
+    unseen = set(bank) - q
+    #parents[start] = None
     while q:
         if end in q:
-            w = end
-            path = [w]
-            while w := parents[w]:
-                path.append(w)
-            print(list(reversed(path)))
+#            w = end
+#            path = [w]
+#            while w := parents[w]:
+#                path.append(w)
+#            print(list(reversed(path)))
             return res
-        _next = []
-        for c, u in product(q, unseen):
-            if u not in seen and isValidMutation(c, u):
-                _next.append(u)
-                seen.add(u)
-                parents[u] = c
-        unseen -= seen
-        _next.sort(key=endKey)
+        _next = set()
+        for curr in q:
+            _next |= unseen & set(curr[:i] + chr(k) + curr[i+1:]
+                    for k in range(97, 123) # Stole this optimization from Leetcode
+                    for i in range(wordLength))
+            for n in _next: parents[n] = curr
+            unseen -= _next
         q = _next
         res += 1
     return 0
+#Runtime: 974 ms, faster than 13.13% of Python3 online submissions for Word Ladder.
+#Memory Usage: 15.2 MB, less than 72.08% of Python3 online submissions for Word Ladder.
 # TLE in the max wordList :/
 # I need to rewrite the trie from design-add-and-search-words-data-structure
 # but fast, this time
