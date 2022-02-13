@@ -13,18 +13,12 @@ from typing import *
 #Runtime: 48 ms, faster than 46.37% of Python3 online submissions for Subsets.
 #Memory Usage: 14.2 MB, less than 82.34% of Python3 online submissions for Subsets.
 
-# Autie functional with list comprehensions:
+# One liner with streamlined bit manipulation ver
 def subsets(nums: List[int]) -> List[List[int]]:
-
-    def byte2arr(byte):
-        return [byte & (1 << i) for i in range(10)]
-
-    def comp(nums, byte):
-        return [num for num, bit in zip(nums, byte) if bit]
-
-    return [comp(nums, byte2arr(i)) for i in range(2**len(nums))]
-# Runtime: 46 ms, faster than 49.95% of Python3 online submissions for Subsets.
-# Memory Usage: 14.1 MB, less than 95.43% of Python3 online submissions for Subsets.
+    return [[nums[i] for i in [0,1,2,3,4,5,6,7,8,9] if byte & (1 << i)] for byte in range(2**len(nums))]
+# Runtime: 36 ms, faster than 79.63% of Python3 online submissions for Subsets.
+# Memory Usage: 14.2 MB, less than 82.34% of Python3 online submissions for Subsets.
+# Big variance though ngl but it's a small problem
 
 # Normie fast ver:
 # def subsets(nums: List[int]) -> List[List[int]]:
