@@ -29,14 +29,12 @@ def singleNumber(nums):
 
 # Disgusting mutate everything in place ver
 def singleNumber(nums):
-    i = 1
-    while i < len(nums):
-        nums[i] ^= nums[i - 1]
-        i += 1
-    return nums[-1]
-# Runtime: 167 ms, faster than 60.44% of Python3 online submissions for Single Number.
-# Memory Usage: 16.5 MB, less than 96.68% of Python3 online submissions for Single Number.
-# lol lmao
+    while len(nums) > 1: nums[0] ^= nums.pop()
+    return nums[0]
+# Runtime: 183 ms, faster than 54.51% of Python3 online submissions for Single Number.
+# Memory Usage: 16 MB, less than 99.46% of Python3 online submissions for Single Number.
+
+def singleNumber(nums):
 
 nums = [4,1,2,1,2]
 print(singleNumber(nums))
