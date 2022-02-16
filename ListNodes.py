@@ -27,3 +27,8 @@ def toArray(head):
         res.append(head.val)
         head = head.next
     return res
+
+def testListFunc(func, head, *kwargs):
+    h = fromArray(head)
+    res = func(h, *kwargs)
+    return toArray(res)
