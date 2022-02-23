@@ -20,3 +20,6 @@ def cloneGraph(node):
     return S[node.val] # technically always 1 but whatever
 # Runtime: 52 ms, faster than 53.28% of Python3 online submissions for Clone Graph.
 # Memory Usage: 14.4 MB, less than 91.72% of Python3 online submissions for Clone Graph.
+# lol lmao
+# Runtime: 28 ms, faster than 99.56% of Python3 online submissions for Clone Graph.
+# Memory Usage: 14.4 MB, less than 66.44% of Python3 online submissions for Clone Graph.
