@@ -2,15 +2,17 @@ from collections import Counter
 
 
 def minDominoRotations(tops, bottoms):
-    def pivot(tops, bottoms):
-        count, n = max((n, count) for count, n in Counter(tops).items())
-        mustFlip = len(tops) - count
-        canFlip = sum(a != n and b == n for a, b in zip(tops, bottoms))
-        return mustFlip if canFlip >= mustFlip else -1
-
-    t, b = pivot(tops, bottoms), pivot(bottoms, tops)
-    return max(t, b) if t == -1 or b == -1 else min(t, b)
-# Runtime: 1633 ms, faster than 38.22% of Python3 online submissions for Minimum Domino Rotations For Equal Row.
+    c = Counter(a for a, b in zip(tops, bottoms) if a == b)
+    t, b = Counter(tops) - c, Counter(bottoms) - c
+    return min(
+        (
+            min(b[n], t[n])
+            for n in (1, 2, 3, 4, 5, 6)
+            if t[n] + b[n] == len(tops) - c[n]
+        ),
+        default=-1,
+    )
+# Runtime: 1216 ms, faster than 80.89% of Python3 online submissions for Minimum Domino Rotations For Equal Row.
 # Memory Usage: 15 MB, less than 77.02% of Python3 online submissions for Minimum Domino Rotations For Equal Row.
 
 
