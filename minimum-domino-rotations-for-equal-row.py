@@ -4,16 +4,16 @@ from collections import Counter
 def minDominoRotations(tops, bottoms):
     c = Counter(a for a, b in zip(tops, bottoms) if a == b)
     t, b = Counter(tops) - c, Counter(bottoms) - c
-    return min(
+    return next(
         (
             min(b[n], t[n])
             for n in (1, 2, 3, 4, 5, 6)
             if t[n] + b[n] == len(tops) - c[n]
         ),
-        default=-1,
+        -1,
     )
-# Runtime: 1216 ms, faster than 80.89% of Python3 online submissions for Minimum Domino Rotations For Equal Row.
-# Memory Usage: 15 MB, less than 77.02% of Python3 online submissions for Minimum Domino Rotations For Equal Row.
+# Runtime: 1096 ms, faster than 97.45% of Python3 online submissions for Minimum Domino Rotations For Equal Row.
+# Memory Usage: 15 MB, less than 94.32% of Python3 online submissions for Minimum Domino Rotations For Equal Row.
 
 
 tops = [2, 1, 2, 4, 2, 2]
