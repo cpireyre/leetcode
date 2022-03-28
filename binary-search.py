@@ -1,30 +1,19 @@
+# this is not good code, but; play stupid games, win stupid prizes.
 def search(ns, n):
-    l, pivot, r = 0, len(ns) // 2, len(ns) - 1
-    if n in (ns[l], ns[pivot], ns[r]):
-        return {
-            ns[l]:l,
-            ns[pivot]:pivot,
-            ns[r]:r,
-            }[n]
-    while l < pivot < r:
-        if n in (ns[l], ns[pivot], ns[r]):
-            return {
-                ns[l]:l,
-                ns[pivot]:pivot,
-                ns[r]:r,
-                }[n]
-        elif ns[l] < n < ns[pivot]:
-            r, pivot = pivot, (pivot + l) // 2
-        elif ns[pivot] < n < ns[r]:
-            l, pivot = pivot, (r + pivot) // 2
-        else:
-            return -1
-    return -1
-# Runtime: 326 ms, faster than 50.88% of Python3 online submissions for Binary Search.
-# Memory Usage: 15.6 MB, less than 27.89% of Python3 online submissions for Binary Search.
+    l, r = 0, len(ns) - 1
+    while l < ((l+r)>>1) < r:
+        l, r = (l, (l+r)>>1) if ns[(l+r)>>1] > n else ((l+r)>>1, r)
+    return next((i for i in (l, r) if ns[i] == n), -1)
+# Runtime: 244 ms, faster than 92.47% of Python3 online submissions for Binary Search.
+# Memory Usage: 15.4 MB, less than 76.86% of Python3 online submissions for Binary Search.
 
-# ns, target = [-1, 0, 3, 5, 9, 12], 9
-# ns, target = [-1,0,3,5,9,12], 2
-# ns, target = [5], 5
-ns, target = [-1,0,3,5,9,12], 13
+ns, target = [-1, 0, 3, 5, 9, 12], 9 # 4
+print(search(ns, target))
+ns, target = [-1,0,3,5,9,12], 2 # -1
+print(search(ns, target))
+ns, target = [5], 5 # 0
+print(search(ns, target))
+ns, target = [-1,0,3,5,9,12], 13 # -1
+print(search(ns, target))
+ns, target = [2,5], 5 # 1
 print(search(ns, target))
