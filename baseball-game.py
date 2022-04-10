@@ -1,17 +1,19 @@
 from functools import reduce
 def calPoints(ops):
-    def step(acc, op):
-        if op == "+":
-            return acc + [int(acc[-1]) + int(acc[-2])]
-        elif op == "D":
-            return acc + [2 * int(acc[-1])]
-        elif op == "C":
-            return acc[0:len(acc) - 1]
+    funcs = {
+        "+": lambda acc: acc.append(acc[-1] + acc[-2]),
+        "D": lambda acc: acc.append(2 * acc[-1]),
+        "C": lambda acc: acc.pop()
+        }
+    acc = []
+    for op in ops:
+        if op[0] == "-" or op[0].isdigit():
+            acc.append(int(op))
         else:
-            return acc + [int(op)]
-    return sum(reduce(step, ops, []))
-# Runtime: 89 ms, faster than 12.66% of Python3 online submissions for Baseball Game.
-# Memory Usage: 14 MB, less than 74.69% of Python3 online submissions for Baseball Game.
+            (funcs[op])(acc)
+    return sum(acc)
+# Runtime: 64 ms, faster than 39.08% of Python3 online submissions for Baseball Game.
+# Memory Usage: 14.2 MB, less than 34.49% of Python3 online submissions for Baseball Game.
 
 ops = ["5","2","C","D","+"]
 print(calPoints(ops)) # 30
