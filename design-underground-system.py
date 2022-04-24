@@ -14,8 +14,7 @@ class UndergroundSystem:
         else:
             self.trips[(source, stationName)].append(t - departure)
 
-    from statistics import fmean
     def getAverageTime(self, startStation: str, endStation: str) -> float:
-        return fmean(self.trips[(startStation, endStation)])
-# Runtime: 466 ms, faster than 10.13% of Python3 online submissions for Design Underground System.
-# Memory Usage: 24.1 MB, less than 73.03% of Python3 online submissions for Design Underground System.
+        return sum(self.trips[(startStation, endStation)]) / len(self.trips[(startStation, endStation)])
+# Runtime: 346 ms, faster than 37.35% of Python3 online submissions for Design Underground System.
+# Memory Usage: 24.1 MB, less than 60.84% of Python3 online submissions for Design Underground System.
